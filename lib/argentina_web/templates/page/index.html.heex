@@ -1,0 +1,20 @@
+<div class="sm:w-full lg:w-7/12 m-auto border border-solid border-black">
+  <div class="flex items-center border-b border-solid border-black">
+    <div class="basis-1/4 p-4 border-r border-solid border-black">
+      <p class="text-xs">Colection</p>
+      <h1 class="text-md"><%= @collection %></h1>
+    </div>
+    <div class="basis-2/4 p-4 border-r border-solid border-black">
+      <p class="text-xs">File Name</p>
+      <h1 class="text-md"><%= @set["name"] %></h1>
+    </div>
+    <div class="basis-1/4 p-4">
+      <%= link "Download", to: Routes.static_path(@conn, @set["static_pdf"]), class: "text-md bg-orange-700 text-slate-50 p-4 w-full" %>
+    </div>
+  </div>
+
+  <%= render(ArgentinaWeb.PdfViewerView, "viewer.html", conn: @conn, pdf_path: @set["static_pdf"]) %>
+
+</div>
+
+

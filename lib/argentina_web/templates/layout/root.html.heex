@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta name="csrf-token" content={csrf_token_value()}>
+    <%= live_title_tag assigns[:page_title] || "Argentina", suffix: " · Phoenix Framework" %>
+    <link phx-track-static rel="stylesheet" href={Routes.static_path(@conn, "/assets/app.css")}/>
+    <script defer phx-track-static type="text/javascript" src={Routes.static_path(@conn, "/assets/app.js")}></script>
+  </head>
+  <body>
+    <header>
+      <section class="p-4 flex justify-between">
+        <a href={Routes.home_path(@conn, :index)}>
+          <h1 class="text-md bg-orange-700 text-slate-50 p-4 block w-72">Argentina Declassification Project</h1>
+        </a>
+        <nav>
+          <form phx-change="search" class="search-form">
+  <%= text_input :search_field, :query, placeholder: "Search", autofocus: true, "phx-debounce": "300" %>
+</form>
+
+          <input type="text" class="rounded-md block border border-solid border-black">
+<!--          <ul>
+            <li><a href="https://hexdocs.pm/phoenix/overview.html">Get Started</a></li>
+            <%= if function_exported?(Routes, :live_dashboard_path, 2) do %>
+              <li><%= link "LiveDashboard", to: Routes.live_dashboard_path(@conn, :home) %></li>
+            <% end %>
+            </ul> 
+-->
+        </nav>
+      </section>
+    </header>
+    <%= @inner_content %>
+  </body>
+</html>

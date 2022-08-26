@@ -1,0 +1,11 @@
+<div id="adobe-dc-view"></div>
+<script src="https://documentcloud.adobe.com/view-sdk/viewer.js"></script>
+<script type="text/javascript">
+	document.addEventListener("adobe_dc_view_sdk.ready", function(){ 
+		var adobeDCView = new AdobeDC.View({clientId: "d6186c19c5b1460fbee6f61af143f225", divId: "adobe-dc-view"});
+		adobeDCView.previewFile({
+			content:{location: {url: "<%= Routes.static_path(@conn, @pdf_path) %>"}},
+			metaData:{fileName: "Bodea Brochure.pdf"}
+		}, {embedMode: "IN_LINE"});
+	});
+</script>
