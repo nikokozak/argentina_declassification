@@ -25,13 +25,17 @@ defmodule ArgentinaWeb.Live.HomeLive do
     {:noreply, assign(socket, sets: sets, searchable_collections: searchable_collections)}
   end
 
-  defp do_search("", _), do: Argentina.SearchEngine.all_documents("test_index", limit: @number_of_docs_limit)
+  defp do_search("", []), do: Argentina.SearchEngine.all_documents("test_index", limit: @number_of_docs_limit)
+  defp do_search("" = query, cols_filter) do
+    {:ok, %{ "hits" => sets }} = Argentina.SearchEngine.search("test_index", query, filter: cols_filter, limit: @number_of_docs_limit)
+    sets
+  end
   defp do_search(query, []) do
-    {:ok, %{ "hits" => sets }} = Argentina.SearchEngine.search("test_index", query)
+    {:ok, %{ "hits" => sets }} = Argentina.SearchEngine.search("test_index", query, limit: @number_of_docs_limit)
     sets
   end
   defp do_search(query, cols_filter) do
-    {:ok, %{ "hits" => sets }} = Argentina.SearchEngine.search("test_index", query, filter: cols_filter)
+    {:ok, %{ "hits" => sets }} = Argentina.SearchEngine.search("test_index", query, filter: cols_filter, limit: @number_of_docs_limit)
     sets
   end
 
