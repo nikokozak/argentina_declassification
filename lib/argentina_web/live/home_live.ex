@@ -1,26 +1,31 @@
 defmodule ArgentinaWeb.Live.HomeLive do
   use ArgentinaWeb, :live_view
 
-  def mount(_params, _session, socket) do
-    sets = Argentina.SearchEngine.all_documents("test_index", limit: 100)
+  @number_of_docs_limit 100
 
-    {:ok, assign(socket, sets: sets)}
+  def mount(_params, _session, socket) do
+    sets = Argentina.SearchEngine.all_documents("test_index", limit: @number_of_docs_limit)
+
+    {:ok, assign(socket, sets: sets, searchable_collections: [])}
   end
 
   def handle_event("search", %{ "search_field" => %{ "query" => query }, "collections" => colls }, socket) do
     searchable_collections = Enum.reduce(colls, [], fn 
       {_coll, "false"}, acc -> acc
-      {coll, "true"}, acc -> [ "collection = \"#{coll}\"" | acc ]
+      {coll, "true"}, acc -> [ coll | acc ]
     end) 
 
-    filter_query = Enum.join(searchable_collections, " AND ")
+    filter_query = 
+      searchable_collections 
+      |> Enum.map(&("collection = \"#{&1}\""))
+      |> Enum.join(" AND ")
 
     sets = do_search(query, filter_query)
 
-    {:noreply, assign(socket, :sets, sets)}
+    {:noreply, assign(socket, sets: sets, searchable_collections: searchable_collections)}
   end
 
-  defp do_search("", _), do: Argentina.SearchEngine.all_documents("test_index")
+  defp do_search("", _), do: Argentina.SearchEngine.all_documents("test_index", limit: @number_of_docs_limit)
   defp do_search(query, []) do
     {:ok, %{ "hits" => sets }} = Argentina.SearchEngine.search("test_index", query)
     sets

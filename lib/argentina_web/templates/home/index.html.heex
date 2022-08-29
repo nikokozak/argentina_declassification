@@ -3,7 +3,7 @@
   <div class="flex content-center">
     <%= for coll <- Argentina.Archive.list_collections() do %>
       <%= label class: "flex pt-2" do %>
-        <%= checkbox :collections, coll, class: "mx-2 mt-1" %>
+        <%= checkbox :collections, coll, class: "mx-2 mt-1", checked: coll in @searchable_collections %>
         <p><%= coll %></p>
       <% end %>
     <% end %>
