@@ -13,8 +13,8 @@ config :argentina, Argentina.Archive,
 
 # Search Engine config
 config :meilisearch,
-  endpoint: "http://127.0.0.1:7700",
-  api_key: "test_api_key"
+  endpoint: System.fetch_env!("MEILISEARCH_ENDPOINT"),
+  api_key: System.fetch_env!("MEILISEARCH_API_KEY")
 
 # Tailwind Config
 config :tailwind, version: "3.1.8", default: [

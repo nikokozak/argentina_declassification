@@ -38,5 +38,8 @@ npm-debug.log
 # Archive sources as well
 /test_archive/
 
-# Ingore meilisearch cached data
+# Ignore meilisearch cached data
 /data.ms/
+
+# Ignore envs
+.envs
