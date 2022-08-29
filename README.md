@@ -1,5 +1,7 @@
 # TODO:
 
+- IMPORT SYSTEM APP - URGENT
+- SEARCH BY COLLECTION
 - Import system w/sha hashing to verify similarity in docs.
 - Track status of individual files via struct.
 

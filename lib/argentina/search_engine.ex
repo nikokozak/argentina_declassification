@@ -4,7 +4,10 @@ defmodule Argentina.SearchEngine do
   Creates a new index, which by default passes a `filterableAttributes` option for our `collection` field.
   """
   @spec create_index(String.t, keyword) :: {:ok, map}
-  def create_index(name, opts \\ [ {:filterableAttributes, ["collection"]} ]), do: Meilisearch.Indexes.create(name, opts)
+  def create_index(name, opts \\ [ {:filterableAttributes, ["collection"]} ]) do
+    Meilisearch.Indexes.create(name, opts)
+    Meilisearch.Settings.update_filterable_attributes(name, ["collection"])
+  end
 
   def delete_index(name), do: Meilisearch.Indexes.delete(name)
 

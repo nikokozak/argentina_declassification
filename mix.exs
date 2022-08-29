@@ -48,7 +48,7 @@ defmodule Argentina.MixProject do
       {:plug_cowboy, "~> 2.5"},
       {:uuid, "~> 1.1"},
 
-      {:meilisearch, git: "https://github.com/nikokozak/meilisearch-elixir"},
+      {:meilisearch, path: "../Elixir/meilisearch-elixir"},
       {:tailwind, "~> 0.1.6", runtime: Mix.env() == :dev}
     ]
   end
